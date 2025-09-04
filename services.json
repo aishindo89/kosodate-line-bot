@@ -1,0 +1,255 @@
+[
+  {
+    "name": "はぐくむFUJI富士市結婚新生活支援補助金",
+    "url": "https://www.city.fuji.shizuoka.jp/shisei/c0108/rn2ola000002y862.html",
+    "description": "結婚に伴う新生活を始めるための費用（住宅取得費用、賃貸借費用、引越費用など）を最大60万円補助する制度です。",
+    "keywords": ["結婚", "新婚", "補助金", "家賃補助", "引越し費用"]
+  },
+  {
+    "name": "富士市若者世帯定住支援奨励金",
+    "url": "https://www.city.fuji.shizuoka.jp/shisei/c0108/rn2ola000002hs1a.html",
+    "description": "市外から転入した若者世帯や子育て世帯が市内に住宅を新築または購入した場合に奨励金を交付する制度です。最大100万円。",
+    "keywords": ["住宅購入", "奨励金", "Uターン", "Iターン", "移住", "マイホーム"]
+  },
+  {
+    "name": "勤労者住宅建設資金利子補給制度",
+    "url": "https://www.city.fuji.shizuoka.jp/sangyo/c0501/rn2ola000002h2ov.html",
+    "description": "中央労働金庫の住宅ローンを利用して市内に住宅を建設・購入する方に、支払った利子の一部を補助します。",
+    "keywords": ["住宅ローン", "利子補給", "ろうきん", "持ち家", "新築"]
+  },
+  {
+    "name": "富士市出産・子育て応援事業",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0402/rn2ola000002x63r.html",
+    "description": "妊娠届出時に「妊婦支援金」5万円、出生届出後の赤ちゃん訪問時に「出産特別お祝い金」5万円を支給する事業です。",
+    "keywords": ["妊娠", "出産", "給付金", "応援ギフト", "祝い金"]
+  },
+  {
+    "name": "出産育児一時金",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0302/rn2ola000002888v.html",
+    "description": "国民健康保険の加入者が出産したときに、50万円（産科医療補償制度対象外の場合は48.8万円）が支給されます。",
+    "keywords": ["出産費用", "国保", "社会保険", "一時金", "分娩"]
+  },
+  {
+    "name": "不妊治療費助成事業",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0402/rn2ola0000028dyf.html",
+    "description": "保険適用された不妊治療（生殖補助医療）とあわせて行われる先進医療にかかる費用の一部を助成します。",
+    "keywords": ["不妊治療", "体外受精", "顕微授精", "助成金", "先進医療"]
+  },
+  {
+    "name": "こども医療費助成制度",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028f0h.html",
+    "description": "高校3年生（18歳になった年度の3月31日）までのこどもの医療費（保険診療分）を助成する制度です。",
+    "keywords": ["病院", "医療費", "無料", "怪我", "病気", "助成"]
+  },
+  {
+    "name": "児童手当",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028et0.html",
+    "description": "中学校卒業までの児童を養育している方に支給される手当です。所得制限があります。",
+    "keywords": ["児童手当", "子ども手当", "支給", "申請", "子育て"]
+  },
+  {
+    "name": "病児・病後児保育事業",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028f32.html",
+    "description": "保護者の就労などにより、病気や病気の回復期にあるお子さんを家庭で保育できない場合に、専用施設で一時的に預かる事業です。",
+    "keywords": ["病児保育", "病後児保育", "子供 熱", "仕事休めない", "預ける"]
+  },
+  {
+    "name": "保育施設（保育園・認定こども園など）の利用について",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028f4t.html",
+    "description": "富士市内の保育園、認定こども園、小規模保育事業所などの利用申込に関する総合案内ページです。",
+    "keywords": ["保育園", "認定こども園", "申し込み", "入園", "保活"]
+  },
+  {
+    "name": "市内の保育施設一覧",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028f77.html",
+    "description": "富士市内の認可保育園、認定こども園、小規模保育事業所の一覧です。各施設の基本情報を確認できます。",
+    "keywords": ["保育園一覧", "認定こども園一覧", "幼稚園", "施設", "マップ"]
+  },
+  {
+    "name": "一時預かり事業",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028f3w.html",
+    "description": "保護者の就労、通院、リフレッシュなどの理由で、一時的にお子さんを預かる事業です。実施施設は市内各地にあります。",
+    "keywords": ["一時保育", "リフレッシュ", "短時間", "預ける", "託児"]
+  },
+  {
+    "name": "休日保育",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028f4g.html",
+    "description": "保護者の就労などにより、日曜日や祝日に家庭で保育ができない場合に、お子さんを預かる事業です。",
+    "keywords": ["休日保育", "日曜保育", "祝日", "仕事", "預ける"]
+  },
+  {
+    "name": "子育て支援センター",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0401/fmervo000000g2v3.html",
+    "description": "親子で気軽に集い、交流できる場所です。育児相談や子育て講座なども開催しています。市内各地にあります。",
+    "keywords": ["遊び場", "友達", "相談", "イベント", "親子", "交流"]
+  },
+  {
+    "name": "放課後児童クラブ（学童保育）",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028f8n.html",
+    "description": "保護者が就労などにより昼間家庭にいない小学生を対象に、放課後に適切な遊びや生活の場を提供します。",
+    "keywords": ["学童保育", "学童", "放課後", "小学生", "預ける"]
+  },
+  {
+    "name": "ファミリー・サポート・センター",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028f9c.html",
+    "description": "子育ての援助を受けたい人（おねがい会員）と援助をしたい人（まかせて会員）が会員となり、地域で助け合う会員組織です。",
+    "keywords": ["送迎", "預かり", "子育て支援", "有償ボランティア", "ファミサポ"]
+  },
+  {
+    "name": "ひとり親家庭等医療費助成",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028ev8.html",
+    "description": "ひとり親家庭等の親と児童の医療費（保険診療分）の一部を助成する制度です。",
+    "keywords": ["ひとり親", "母子家庭", "父子家庭", "医療費", "助成"]
+  },
+  {
+    "name": "児童扶養手当",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028euw.html",
+    "description": "離婚などにより、父または母と生計を同じくしていない児童を養育しているひとり親家庭等に支給される手当です。",
+    "keywords": ["ひとり親", "母子家庭", "父子家庭", "手当", "離婚"]
+  },
+  {
+    "name": "母子父子寡婦福祉資金貸付金",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0403/rn2ola0000028ewb.html",
+    "description": "ひとり親家庭や寡婦の方の経済的自立を支援するため、お子さんの修学資金や親の技能習得資金などを低利子または無利子で貸し付ける制度です。",
+    "keywords": ["ひとり親", "貸付", "奨学金", "就職", "自立支援"]
+  },
+  {
+    "name": "富士市こども家庭センター",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0401/rn2ola000002y65n.html",
+    "description": "妊娠期から18歳までのこどもと家庭に関するあらゆる相談に応じる総合相談窓口です。必要に応じて関係機関と連携し支援します。",
+    "keywords": ["子育て相談", "児童相談", "家庭相談", "虐待", "発達"]
+  },
+  {
+    "name": "教育相談（教育相談室）",
+    "url": "https://www.city.fuji.shizuoka.jp/kyouiku/c0205/rn2ola00000282m3.html",
+    "description": "いじめ、不登校、友人関係、発達など、幼児から高校生までの教育に関する様々な悩みの相談に応じています。",
+    "keywords": ["教育相談", "不登校", "いじめ", "発達障害", "学校"]
+  },
+  {
+    "name": "富士市若者相談窓口「ココ☆カラ」",
+    "url": "https://www.city.fuji.shizuoka.jp/kyouiku/c0208/rn2ola000002xzw8.html",
+    "description": "ひきこもりやニート、就労など、様々な悩みを抱える若者（15歳～39歳）とその家族のための相談窓口です。",
+    "keywords": ["若者支援", "ひきこもり", "ニート", "就労支援", "相談"]
+  },
+  {
+    "name": "母子健康手帳の交付",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0402/rn2ola0000028dta.html",
+    "description": "妊娠の届出をした方に母子健康手帳を交付します。妊婦健康診査の受診票もあわせて交付されます。",
+    "keywords": ["母子手帳", "妊娠", "届出", "妊婦健診"]
+  },
+  {
+    "name": "妊婦健康診査",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0402/rn2ola0000028du5.html",
+    "description": "母子健康手帳と同時に交付される受診票を使い、県内の医療機関で妊婦健診の費用の一部助成が受けられます。",
+    "keywords": ["妊婦健診", "助成", "受診票", "エコー", "検査"]
+  },
+  {
+    "name": "パパママ学級",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0402/rn2ola0000028dvh.html",
+    "description": "これからお父さん・お母さんになる方を対象に、妊娠・出産・育児について学ぶ教室です。",
+    "keywords": ["両親学級", "父親学級", "プレパパ", "プレママ", "沐浴"]
+  },
+  {
+    "name": "新生児・産婦訪問",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0402/rn2ola0000028e23.html",
+    "description": "生後28日以内の赤ちゃんと産後のお母さんを対象に、保健師または助産師が家庭訪問し、相談に応じます。",
+    "keywords": ["赤ちゃん訪問", "新生児", "産後ケア", "保健師", "助産師"]
+  },
+  {
+    "name": "乳幼児健康診査",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0402/rn2ola0000028e2s.html",
+    "description": "4か月、10か月、1歳6か月、3歳児を対象に、発育・発達の確認や育児相談のための集団健診を実施しています。",
+    "keywords": ["乳幼児健診", "4か月健診", "1歳6か月健診", "3歳児健診", "発達"]
+  },
+  {
+    "name": "ブックスタート",
+    "url": "https://www.city.fuji.shizuoka.jp/kyouiku/c0307/rn2ola00000283n5.html",
+    "description": "4か月児健診の際に、絵本を開く楽しい体験と一緒に、絵本を手渡す活動です。",
+    "keywords": ["絵本", "読み聞かせ", "赤ちゃん", "健診", "プレゼント"]
+  }
+  {
+    "name": "富士市立少年少女センター（児童館）",
+    "url": "https://www.city.fuji.shizuoka.jp/kyouiku/c0206/rn2ola00000282p0.html",
+    "description": "0歳から18歳までの子どもが自由に利用できる無料の屋内施設です。遊戯室や図書室、工作室などがあり、様々なイベントも開催されています。",
+    "keywords": ["児童館", "遊び場", "無料", "室内", "イベント", "雨の日"]
+  },
+  {
+    "name": "ふじ子育てほっとステーション（子育て支援サイト）",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0401/fmervo000000g2v3.html",
+    "description": "富士市の子育てに関する情報を集約した公式ポータルサイトです。イベント情報や施設検索、各種手続きの案内などが掲載されています。",
+    "keywords": ["子育てサイト", "情報", "イベント", "検索", "手続き"]
+  },
+  {
+    "name": "富士市立中央図書館",
+    "url": "https://lib.fuji.shizuoka.jp/",
+    "description": "子ども向けの絵本コーナーが充実しており、定期的に「おはなし会」などのイベントを開催しています。本や紙芝居の貸し出しも行っています。",
+    "keywords": ["図書館", "絵本", "おはなし会", "読み聞かせ", "自習室"]
+  },
+  {
+    "name": "こども療育センター",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0404/rn2ola0000028fi7.html",
+    "description": "心身の発達に支援が必要なお子さん（乳幼児から学齢児）とその保護者を対象に、相談や診療、療育（リハビリテーション）を行う専門機関です。",
+    "keywords": ["発達障害", "療育", "相談", "リハビリ", "言葉の遅れ", "障害児支援"]
+  },
+  {
+    "name": "地区まちづくりセンター（交流センター・公民館）",
+    "url": "https://www.city.fuji.shizuoka.jp/shisei/c0104/rn2ola000002gyv1.html",
+    "description": "各地域にあるコミュニティ施設です。一部施設には乳幼児が遊べるスペースがあり、子育てサークルの活動場所としても利用されています。",
+    "keywords": ["公民館", "交流センター", "サークル活動", "遊び場", "地域"]
+  },
+  {
+    "name": "富士市社会福祉協議会",
+    "url": "https://fujishakyo.or.jp/",
+    "description": "生活福祉資金の貸付相談や、ボランティア活動の紹介などを行っています。子育てサロンやこども食堂の支援なども手掛ける地域福祉の中核機関です。",
+    "keywords": ["社協", "貸付", "ボランティア", "こども食堂", "福祉"]
+  },
+  {
+    "name": "生活困窮者自立支援制度",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0101/rn2ola0000027yfx.html",
+    "description": "仕事や住まいの問題で経済的に困っている方の相談窓口です。専門の支援員が一緒に考え、自立に向けた計画を作成し、支援を行います。",
+    "keywords": ["生活保護", "お金がない", "仕事がない", "家賃が払えない", "相談"]
+  },
+  {
+    "name": "女性のための相談室",
+    "url": "https://www.city.fuji.shizuoka.jp/shisei/c0111/rn2ola000002h0i9.html",
+    "description": "女性が抱える様々な悩み（夫婦関係、DV、生き方など）について、女性の専門相談員が無料で相談に応じます。秘密は厳守されます。",
+    "keywords": ["女性相談", "DV", "離婚", "悩み", "カウンセリング"]
+  },
+  {
+    "name": "フジキャリアサポート（富士市就労支援事業）",
+    "url": "https://www.city.fuji.shizuoka.jp/sangyo/c0501/rn2ola000002h2f3.html",
+    "description": "若者や女性、シニア世代などを対象に、キャリアコンサルティングや就職セミナー、企業とのマッチングなど、就職に関する支援を無料で行っています。",
+    "keywords": ["就職支援", "仕事探し", "転職", "キャリア相談", "就活"]
+  },
+  {
+    "name": "広見公園",
+    "url": "https://www.city.fuji.shizuoka.jp/kyouiku/c0302/fmervo000000dwf4.html",
+    "description": "大型の複合遊具や芝生広場がある広い公園です。歴史民俗資料館や富士山かぐや姫ミュージアムも併設されており、家族で一日楽しめます。",
+    "keywords": ["公園", "遊び場", "アスレチック", "ピクニック", "無料"]
+  },
+  {
+    "name": "富士山こどもの国",
+    "url": "http://www.kodomo.or.jp/",
+    "description": "富士山の麓にある広大な有料公園です。「街」「草原の国」「水の国」の3エリアに分かれ、動物とのふれあいやカヌー、自然体験などが楽しめます。",
+    "keywords": ["こどもの国", "レジャー", "動物園", "水遊び", "アスレチック"]
+  },
+  {
+    "name": "予防接種",
+    "url": "https://www.city.fuji.shizuoka.jp/kenkou/c0402/rn2ola0000028e57.html",
+    "description": "子どもの定期予防接種に関する案内です。対象年齢や接種間隔、協力医療機関のリストなどを確認できます。",
+    "keywords": ["予防接種", "ワクチン", "定期接種", "赤ちゃん", "無料"]
+  },
+  {
+    "name": "富士市公式LINEアカウント",
+    "url": "https://www.city.fuji.shizuoka.jp/shisei/c0113/rn2ola000002guax.html",
+    "description": "市のイベント情報や防災情報、ごみ収集日などを配信しています。「受信設定」で「子育て」を選択すると、関連情報を受け取ることができます。",
+    "keywords": ["LINE", "市役所", "情報", "通知", "子育て"]
+  },
+  {
+    "name": "ごみ分別アプリ「さんあ〜る」",
+    "url": "https://www.city.fuji.shizuoka.jp/kurashi/c0601/rn2ola0000028qzc.html",
+    "description": "ごみの収集日をカレンダーで確認したり、アラームで通知したりできるスマートフォンアプリです。ごみの分別方法も手軽に検索できます。",
+    "keywords": ["ごみ", "アプリ", "収集日", "分別", "リサイクル"]
+  }
+
+]
