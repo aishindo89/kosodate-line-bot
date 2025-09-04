@@ -13,6 +13,10 @@ load_dotenv()
 
 app = Flask(__name__)
 
+# ユーザーごとの会話履歴を保存するための辞書
+conversation_history = {}
+
+
 try:
     with open('services.json', 'r', encoding='utf-8') as f:
         services_data = json.load(f)
@@ -35,21 +39,21 @@ def search_services(query):
     sorted_results = sorted(results, key=lambda x: x['score'], reverse=True)
     return [item['service'] for item in sorted_results[:3]]
 
+# --- ▼▼▼ 修正点：system_promptにURLに関する厳格なルールを追加 ▼▼▼ ---
 system_prompt = """
 あなたは「アイちゃん」です。元保育士で、現在は静岡県富士市役所に勤務しているという設定の、親しみやすいAIアシスタントです。
-あなたの主な仕事は、富士市に住む子育て中のパパやママをサポートすることです。
+あなたの主な仕事は、富士市に住む子育て中のパパやママをサポートすることです。会話を通じて、ユーザーの悩みに寄り添い、解決の手助けをしてください。
 
-# 守るべきルール
+# 振る舞いの基本ルール
 - 必ず「アイちゃん」として応答してください。
-- 300文字以内で応答してください。
-- ユーザーからの質問や相談に対して、まずは共感の言葉を伝えてください。
-- **これから提示する「関連サービス情報」を元にして、ユーザーの質問に最も適した回答を生成してください。**
-- **回答には、関連するサービスのURLを必ず含めてください。**
-- 提示された情報で回答が難しい場合は、「その件については、こちらの富士市の公式サイトをご確認いただけますか？」と正直に伝えてください。
+- 常に丁寧語を使い、共感と優しさを忘れないでください。
+- **市の公式サービスについて言及する際は、必ず提供された公式URLを使用してください。不明な場合や提供されていない場合は、架空のURLや例（example.comなど）を決して生成してはいけません。これは最も重要なルールです。**
 - 医療的な判断が必要な相談には直接答えず、「かかりつけの小児科医や、市の保健センターにご相談くださいね」と優しく促してください。
-- 回答の最後は、ユーザーを応援するポジティブな言葉で締めくくってください。
-
+- 回答の最後は、ユーザーを応援するポジティブな言葉で締めくくることが多いです。
+- 全体の回答は250文字以内を目安に、簡潔にまとめてください。
 """
+# --- ▲▲▲ 修正点 ▲▲▲ ---
+
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 LINE_CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
@@ -77,40 +81,40 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
+    user_id = event.source.user_id # ユーザーを識別するためのIDを取得
     user_message = event.message.text
+    
+    # ユーザーIDに基づいて会話セッションを取得、なければ新規作成
+    if user_id not in conversation_history:
+        conversation_history[user_id] = model.start_chat(history=[])
+    chat_session = conversation_history[user_id]
     
     relevant_services = search_services(user_message)
     
-    # --- ▼▼▼ここから変更点▼▼▼ ---
+    # --- ▼▼▼ 修正点：AIへの指示書の構造を全面的に改良 ▼▼▼ ---
+    context_prompt = f"ユーザーは「{user_message}」と質問しています。\n\n"
 
-    # AIへの指示（プロンプト）を組み立てる
-    # 1. まず、Web検索を依頼する指示を記述
-    context_prompt = (
-        f"ユーザーは「{user_message}」と質問しています。\n\n"
-        "# タスク1: 一般的な回答の生成\n"
-        "まず、この質問に対して、一般的なアドバイスや解決策をあなたの知識とウェブ検索能力を駆使して、親しみやすく回答してください。\n\n"
-    )
-
-    # 2. services.jsonから関連情報が見つかった場合、追加の指示を追記
+    # 最初に利用可能なツール（市の公式情報）を提示する
     if relevant_services:
-        context_prompt += (
-            "# タスク2: 富士市の公式情報の紹介\n"
-            "その上で、もし以下の富士市の公式サービス情報の中に、この質問の解決に役立ちそうなものがあれば、「富士市には、こんなサポートもありますよ」といった形で、自然な流れで紹介してください。回答には必ずサービスのURLを含めてください。\n\n"
-            "# 関連サービス情報\n"
-        )
+        context_prompt += "# あなたが利用できる富士市の公式情報リスト（信頼できる情報源）\n"
         for service in relevant_services:
             context_prompt += f"- サービス名: {service['name']}\n  - 説明: {service['description']}\n  - URL: {service['url']}\n"
-    
-    # 3. 最後に、回答の形式を指示
-    context_prompt += (
-        "\n# 回答の形式\n"
-        "上記タスク1とタスク2の結果を組み合わせて、一つの自然でまとまりのある文章として回答を生成してください。"
-    )
+        context_prompt += "\n"
 
-    # --- ▲▲▲ここまで変更点▲▲▲ ---
+    # 次に、提示したツールをどう使うかの具体的な指示を与える
+    context_prompt += (
+        "# あなたへの指示\n"
+        "1. まず、ユーザーの質問に対し、あなたの知識とウェブ検索能力を使って一般的な回答やアドバイスを生成してください。\n"
+        "2. 次に、上記の「あなたが利用できる富士市の公式情報リスト」の中に、ユーザーの質問に役立つ情報があるか検討してください。\n"
+        "3. もし役立つ情報があると判断した場合のみ、あなたの一般的な回答に続けて、「富士市には、このようなサポートもありますよ」のように紹介してください。\n"
+        "4. **【最重要ルール】** 公式情報を紹介する際は、リストに書かれている**サービス名、説明、URLを、一言一句変えずにそのまま使用してください。** あなたの知識で情報を補ったり、**架空のURLを創作することは絶対に禁止します。**\n"
+        "5. もしユーザーの質問が曖昧で、より的確な回答をするために追加の情報が必要な場合は、回答の最後に、ユーザーが答えやすいような具体的な質問を一つか二つ付け加えてください。\n"
+        "6. 上記の指示をすべて考慮し、一つの自然でまとまりのある文章として回答を作成してください。"
+    )
+    # --- ▲▲▲ 修正点 ▲▲▲ ---
 
     try:
-        chat_session = model.start_chat(history=[])
+        # ユーザーごとの会話セッションを使って対話する
         response = chat_session.send_message(context_prompt)
         gemini_reply = response.text
     except Exception as e:
@@ -128,3 +132,4 @@ def handle_message(event):
 
 if __name__ == "__main__":
     app.run(port=8080)
+
