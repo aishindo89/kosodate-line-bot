@@ -9,19 +9,44 @@ from linebot.v3.messaging import Configuration, ApiClient, MessagingApi, ReplyMe
 from linebot.v3.webhooks import MessageEvent, TextMessageContent
 from dotenv import load_dotenv
 
+# --- ▼▼▼ Firestore関連のライブラリを追加 ▼▼▼ ---
+import firebase_admin
+from firebase_admin import credentials, firestore
+# --- ▲▲▲ ここまで ▲▲▲ ---
+
 load_dotenv()
 
 app = Flask(__name__)
 
+# --- ▼▼▼ Firestoreの初期化処理を追加 ▼▼▼ ---
+try:
+    # Render環境では環境変数から認証情報を読み込む
+    firebase_credentials_json = os.getenv('FIREBASE_CREDENTIALS')
+    if firebase_credentials_json:
+        firebase_credentials = json.loads(firebase_credentials_json)
+        cred = credentials.Certificate(firebase_credentials)
+    else:
+        # ローカル環境ではファイルから読み込む
+        cred = credentials.Certificate('serviceAccountKey.json')
+    
+    firebase_admin.initialize_app(cred)
+    db = firestore.client()
+except Exception as e:
+    app.logger.error(f"Firebaseの初期化に失敗しました: {e}")
+    db = None
+# --- ▲▲▲ ここまで ▲▲▲ ---
+
 # ユーザーごとの会話履歴を保存するための辞書
 conversation_history = {}
 
-
+# services.json のみを読み込む
 try:
     with open('services.json', 'r', encoding='utf-8') as f:
         services_data = json.load(f)
 except FileNotFoundError:
     services_data = []
+
+# search_hospitals関数は不要なので削除
 
 def search_services(query):
     results = []
@@ -39,7 +64,6 @@ def search_services(query):
     sorted_results = sorted(results, key=lambda x: x['score'], reverse=True)
     return [item['service'] for item in sorted_results[:3]]
 
-# 1. 文字数制限を250文字に修正
 system_prompt = """
 あなたは「アイちゃん」です。元保育士で、現在は静岡県富士市役所に勤務しているという設定の、親しみやすいAIアシスタントです。
 あなたの主な仕事は、富士市に住む子育て中のパパやママをサポートすることです。会話を通じて、ユーザーの悩みに寄り添い、解決の手助けをしてください。
@@ -47,7 +71,7 @@ system_prompt = """
 # 振る舞いの基本ルール
 - 必ず「アイちゃん」として応答してください。
 - 常に丁寧語を使い、共感と優しさを忘れないでください。
-- **市の公式サービスについて言及する際は、必ず提供された公式URLを使用してください。不明な場合や提供されていない場合は、架空のURLや例（example.comなど）を決して生成してはいけません。これは最も重要なルールです。**
+- **市の公式サービスや施設について言及する際は、必ず提供された公式情報や、あなたがウェブ検索で見つけた公式サイトのURLを忠実に使用してください。架空のURLや例（example.comなど）を決して生成してはいけません。これは最も重要なルールです。**
 - 医療的な判断が必要な相談には直接答えず、「かかりつけの小児科医や、市の保健センターにご相談くださいね」と優しく促してください。
 - 回答の最後は、ユーザーを応援するポジティブな言葉で締めくくることが多いです。
 - 全体の回答は250文字以内を目安に、簡潔にまとめてください。
@@ -80,41 +104,53 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
-    user_id = event.source.user_id # ユーザーを識別するためのIDを取得
+    user_id = event.source.user_id 
     user_message = event.message.text
     
-    # ユーザーIDに基づいて会話セッションを取得、なければ新規作成
     if user_id not in conversation_history:
         conversation_history[user_id] = model.start_chat(history=[])
     chat_session = conversation_history[user_id]
     
     relevant_services = search_services(user_message)
+    # relevant_hospitalsの行は不要なので削除
     
     context_prompt = f"ユーザーは「{user_message}」と質問しています。\n\n"
 
-    # 最初に利用可能なツール（市の公式情報）を提示する
     if relevant_services:
         context_prompt += "# あなたが利用できる富士市の公式情報リスト（信頼できる情報源）\n"
         for service in relevant_services:
             context_prompt += f"- サービス名: {service['name']}\n  - 説明: {service['description']}\n  - URL: {service['url']}\n"
         context_prompt += "\n"
 
-    # 次に、提示したツールをどう使うかの具体的な指示を与える
+    # --- ▼▼▼ ここが今回の重要な修正点です ▼▼▼ ---
     context_prompt += (
         "# あなたへの指示\n"
-        "1. まず、ユーザーの質問に対し、あなたの知識とウェブ検索能力を使って一般的な回答やアドバイスを生成してください。\n"
-        "2. 上記の「公式情報リスト」が提示されている場合は、その中にユーザーの質問に役立つ情報があるか検討してください。\n"
-        "3. もし役立つ情報があると判断した場合のみ、あなたの一般的な回答に続けて、「富士市には、このようなサポートもありますよ」のように紹介してください。\n"
-        "4. **【最重要ルール】** 公式情報を紹介する際は、リストに書かれている**サービス名、説明、URLを、一言一句変えずにそのまま使用してください。** あなたの知識で情報を補ったり、**架空のURLを創作することは絶対に禁止します。**\n"
+        "1. まず、ユーザーの質問に対し、あなたの知識を使って一般的な回答やアドバイスを生成してください。\n"
+        "2. **【施設検索】** もしユーザーが病院、クリニック、公園、レストランなど、**富士市内の具体的な施設**を探している様子であれば、**あなたのウェブ検索能力を使って、関連する施設を2〜3件探してください。** その際、**必ず施設の正式名称と公式サイトのURLを提示してください。** URLが不明な場合は「公式サイトURL不明」と記載し、架空のURLは絶対に生成しないでください。\n"
+        "3. 上記の「公式情報リスト」が提示されている場合は、その中にユーザーの質問に役立つ情報があるか検討し、役立つと判断した場合のみ紹介してください。\n"
+        "4. **【最重要ルール】** 公式情報を紹介する際は、リストに書かれている情報を、一言一句変えずにそのまま使用してください。\n"
         "5. **【応答の自然さに関するルール】** もし役立つ公式情報が見つからなかったり、紹介しないと判断した場合でも、**そのこと自体には言及しないでください。**（例：「該当する情報はありませんでした」といった表現は使わないこと）。自然に一般的な回答だけを返してください。\n"
-        "6. **【対話の深化に関するルール】** もしユーザーの質問が曖昧で追加情報が必要な場合、具体的な質問をしてください。ただし、**「詳しく教えてください」のような同じパターンの質問を2回以上連続して使用しないでください。** 2回連続で質問した後は、「他に何かお聞きになりたいことはありますか？」や「この件について、他にご心配な点はございますか？」のように、ユーザーに主導権を渡すような、表現の異なる問いかけに切り替えてください。\n"
+        "6. **【対話の深化に関するルール】** もしユーザーの質問が曖ímavで追加情報が必要な場合、具体的な質問をしてください。ただし、**「詳しく教えてください」のような同じパターンの質問を2回以上連続して使用しないでください。** 2回連続で質問した後は、「他に何かお聞きになりたいことはありますか？」や「この件について、他にご心配な点はございますか？」のように、ユーザーに主導権を渡すような、表現の異なる問いかけに切り替えてください。\n"
         "7. 上記の指示をすべて考慮し、一つの自然でまとまりのある文章として回答を作成してください。"
     )
+    # --- ▲▲▲ ここまでが修正点です ▲▲▲ ---
 
     try:
-        # ユーザーごとの会話セッションを使って対話する
         response = chat_session.send_message(context_prompt)
         gemini_reply = response.text
+
+        if db:
+            try:
+                doc_ref = db.collection('consultations').document()
+                doc_ref.set({
+                    'user_id': user_id, 
+                    'user_message': user_message,
+                    'gemini_reply': gemini_reply,
+                    'timestamp': firestore.SERVER_TIMESTAMP
+                })
+            except Exception as e:
+                app.logger.error(f"Firestoreへの書き込みに失敗しました: {e}")
+
     except Exception as e:
         app.logger.error(f"Gemini API Error: {e}")
         gemini_reply = "ごめんなさい、今ちょっと考えがまとまらないみたいです。少し時間を置いてからもう一度試してみてください。"
