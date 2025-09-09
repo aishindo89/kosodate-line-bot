@@ -89,6 +89,15 @@ model = genai.GenerativeModel('gemini-1.5-flash', system_instruction=system_prom
 configuration = Configuration(access_token=LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
+# --- ▼▼▼ ここからが今回の重要な修正点です ▼▼▼ ---
+
+# UptimeRobotがサーバーの状態を確認するための専用ルート
+@app.route("/", methods=['GET'])
+def health_check():
+    return "OK", 200
+
+# --- ▲▲▲ ここまでが修正点です ▲▲▲ ---
+
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
@@ -113,7 +122,6 @@ def handle_message(event):
     
     context_prompt = f"ユーザーは「{user_message}」と質問しています。\n\n"
 
-    # AIに思考プロセスを段階的に指示する、より構造化されたプロンプト
     context_prompt += "# あなたへの指示\n"
     context_prompt += "以下の思考プロセスとルールに従って、ユーザーへの最適な回答を生成してください。\n\n"
 
@@ -127,7 +135,7 @@ def handle_message(event):
     context_prompt += "- **意図が(a)の場合:** 下記の「公式情報リスト」を**最優先**で参照し、関連する情報を**正確に**伝えてください。\n"
     context_prompt += "- **意図が(b)の場合:** あなたのウェブ検索能力を使い、**富士市内**の関連施設を1〜2件探してください。その際、**必ず施設の正式名称**と**公式サイトのURL**を提示してください。\n"
     context_prompt += "- **意図が(c)の場合:** まず共感の言葉を述べ、一般的なアドバイスを生成します。その上で、もし下記の「公式情報リスト」に役立ちそうな情報があれば、追加で紹介することを検討してください。\n\n"
-
+    
     context_prompt += (
         "### ステップ3: 回答を生成する際の共通ルール\n"
         "- **【最重要: URLの正確性】** 公式情報リストの情報を使う場合も、ウェブ検索をする場合も、**URLは絶対に創作しないでください。** 不明な場合は正直に「公式サイトURL不明」と記載してください。\n"
@@ -160,7 +168,7 @@ def handle_message(event):
 
     except Exception as e:
         app.logger.error(f"Gemini API Error: {e}")
-        gemini_reply = "ごめんなさい、今ちょっと考えがまとまらないみたいです。少し時間を置いてからもう一度試してみてください。"
+        gemini_reply = "ごめめんなさい、今ちょっと考えがまとまらないみたいです。少し時間を置いてからもう一度試してみてください。"
 
     with ApiClient(configuration) as api_client:
         line_bot_api = MessagingApi(api_client)
